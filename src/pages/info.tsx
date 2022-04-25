@@ -26,7 +26,7 @@ const InfoPage: FunctionComponent<infoPageProps> = function ({
         <Global styles={globalStyle} />      
         <div css={TextStyle}>{title}</div>
         <Text1>{description}</Text1>
-        {author}
+        <Text2>{author}</Text2>
     </div>
 }
 
@@ -55,6 +55,13 @@ const Text1 = styled.div`
     font-size: 20px;
     font-weight: 700;
 `
+
+// 객체를 통해 Styled Component 생성
+// 하이픈('-')을 통해 단어를 연결하는 Kebab Case가 아닌 단어가 합쳐진 부분마다 맨 처음 글자를 대문자로 표시하는 Camel Case를 사용한다는 점과 스타일 값은 무조건 String Type으로 전달해야 한다
+const Text2 = styled('div')(() => ({
+    fontSize: '15px',
+    color: 'blue'
+}))
 
 export const metadataQuery = graphql `
     {
