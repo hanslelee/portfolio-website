@@ -25,8 +25,8 @@ const InfoPage: FunctionComponent<infoPageProps> = function ({
     return <div>
         <Global styles={globalStyle} />      
         <div css={TextStyle}>{title}</div>
-        <Text1>{description}</Text1>
-        <Text2>{author}</Text2>
+        <Text1 disable={true}>{description}</Text1>
+        <Text2 disable={true}>{author}</Text2>
     </div>
 }
 
@@ -51,16 +51,18 @@ const TextStyle = css`
 
 // Tagged Template Literal 방식을 통한 Styled Component 생성
 // 다른 요소의 스타일을 적용할땐 styled.img 처럼 해당 엘리먼트를 styled 뒤에 붙여 호출해주면 된다.
-const Text1 = styled.div`
+const Text1 = styled.div<{ disable: boolean }>`
     font-size: 20px;
     font-weight: 700;
+    text-decoration: ${({ disable }) => disable ? 'line-through':'none'}
 `
 
 // 객체를 통해 Styled Component 생성
 // 하이픈('-')을 통해 단어를 연결하는 Kebab Case가 아닌 단어가 합쳐진 부분마다 맨 처음 글자를 대문자로 표시하는 Camel Case를 사용한다는 점과 스타일 값은 무조건 String Type으로 전달해야 한다
-const Text2 = styled('div')(() => ({
+const Text2 = styled('div')<{ disable: boolean }>(({disable}) => ({
     fontSize: '15px',
-    color: 'blue'
+    color: 'blue',
+    textDecoration: disable ? 'line-through' : 'none'
 }))
 
 export const metadataQuery = graphql `
